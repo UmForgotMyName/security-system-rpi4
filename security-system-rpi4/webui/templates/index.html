@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intruders</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 20px;
+        }
+
+        #photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .photo-container-item {
+            margin: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        img:hover {
+            transform: scale(1.1);
+        }
+
+        p {
+            font-size: 12px;
+            color: #888;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Intruders</h1>
+
+    <div id="photo-container"></div>
+
+    <script>
+        function updatePhotoGallery() {
+            fetch('/get_photos')
+                .then(response => response.json())
+                .then(data => {
+                    const photoContainer = document.getElementById('photo-container');
+                    photoContainer.innerHTML = '';
+
+                    data.photos.forEach(photo => {
+                        const containerItem = document.createElement('div');
+                        containerItem.className = 'photo-container-item';
+
+                        const img = document.createElement('img');
+                        img.src = `/photos/${photo.filename}`;
+                        img.alt = photo.filename;
+
+                        const p = document.createElement('p');
+                        p.textContent = `Date: ${photo.created_at} UTC`;
+
+                        containerItem.appendChild(img);
+                        containerItem.appendChild(p);
+                        photoContainer.appendChild(containerItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching photos:', error));
+        }
+
+        // Update the photo gallery on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePhotoGallery();
+        });
+
+        // Update the photo gallery every 5 seconds (adjust as needed)
+        setInterval(updatePhotoGallery, 5000);
+    </script>
+</body>
+</html>
