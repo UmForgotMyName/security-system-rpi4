@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project involves creating a security lock system using a Raspberry Pi 4 Model B (8GB) and various peripherals, including a 12V solenoid door lock, IR sensor, Raspberry Pi camera module, RFID scanner, and more. The system uses facial recognition and RFID technology to grant access to authorized personnel.
+This project involves creating a security lock system using a Raspberry Pi 4 and various peripherals, including a 12V solenoid door lock, IR sensor, Raspberry Pi camera module, RFID scanner, and more. The system employs facial recognition and RFID technology to grant access to authorized personnel while logging unrecognized faces on a Flask website.
 
 ## Project Components
 
